@@ -22,6 +22,7 @@ const equalsButton = document.querySelector("#\\=");
 equalsButton.addEventListener("click", processEquals);
 
 let toResetFrontDisplay = false;
+let toResetQueueDisplay = false;
 
 function addNumber(e) {
   const number = e.target.id;
@@ -29,6 +30,12 @@ function addNumber(e) {
   if ((frontValue === "0" && number !== ".") || toResetFrontDisplay) {
     frontValue = "";
     toResetFrontDisplay = false;
+  }
+
+  if (toResetQueueDisplay) {
+    queueValue = "";
+    queueDisplay.textContent = queueValue;
+    toResetQueueDisplay = false;
   }
 
   if (!(number === "." && frontValue.includes("."))) {
@@ -50,6 +57,10 @@ function addNumber(e) {
 function processOperator(e) {
   if (checkOverflow()) {
     return;
+  }
+
+  if (queueValue.slice(-1) === "=") {
+    toResetQueueDisplay = false;
   }
   
   if (operatorList.some(operator => operator === queueValue.slice(-1))) {
@@ -73,6 +84,11 @@ function processEquals(e) {
   queueDisplay.textContent = queueValue;
 
   getUpdateResult();
+
+  toResetFrontDisplay = true;
+  toResetQueueDisplay = true;
+  secondNumber = null;
+  operator = null;
 }
 
 function getUpdateResult() {
