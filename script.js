@@ -20,11 +20,14 @@ operatorButtons.forEach(operatorButton => operatorButton.addEventListener("click
 const equalsButton = document.querySelector("#\\=");
 equalsButton.addEventListener("click", processEquals);
 
+let toResetFrontDisplay = false;
+
 function addNumber(e) {
   const number = e.target.id;
 
-  if (frontValue === "0" && number !== ".") {
+  if ((frontValue === "0" && number !== ".") || toResetFrontDisplay) {
     frontValue = "";
+    toResetFrontDisplay = false;
   }
 
   if (!(number === "." && frontValue.includes("."))) {
@@ -45,6 +48,8 @@ function processOperator(e) {
 
   queueValue = `${frontValue} ${operator}`;
   queueDisplay.textContent = queueValue;
+
+  toResetFrontDisplay = true;
 }
 
 function processEquals(e) {
@@ -53,6 +58,7 @@ function processEquals(e) {
   }
 
   const result = operate(operator, firstNumber, secondNumber);
+  firstNumber = result;
 
   frontValue = result.toString();
   frontDisplay.textContent = frontValue;
