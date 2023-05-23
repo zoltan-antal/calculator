@@ -1,41 +1,73 @@
-let firstNumber;
-let secondNumber;
-let operation;
+let firstNumber = null;
+let secondNumber = null;
+let operator = null;
 
-let displayValue = "0";
-const resultDisplay = document.querySelector("#result");
-const queueDisplay = document.querySelector("#queue");
-resultDisplay.textContent = displayValue;
+// const operatorList = ["+", "-", "×", "÷"];
 
-const numbers = document.querySelectorAll(".number");
-numbers.forEach(number => number.addEventListener("click", addNumber));
+let frontValue = "0";
+let queueValue = "";
+const frontDisplay = document.querySelector("#front-display");
+const queueDisplay = document.querySelector("#queue-display");
+frontDisplay.textContent = frontValue;
+queueDisplay.textContent = queueValue;
+
+const numberButtons = document.querySelectorAll(".number");
+numberButtons.forEach(numberButton => numberButton.addEventListener("click", addNumber));
+
+const operatorButtons = document.querySelectorAll(".operator");
+operatorButtons.forEach(operatorButton => operatorButton.addEventListener("click", processOperator));
+
+const equalsButton = document.querySelector("#\\=");
+equalsButton.addEventListener("click", processEquals);
 
 function addNumber(e) {
-  if (displayValue === "0" && e.target.id !== ".") {
-    displayValue = "";
+  const number = e.target.id;
+
+  if (frontValue === "0" && number !== ".") {
+    frontValue = "";
   }
 
-  if (!(e.target.id === "." && displayValue.includes("."))) {
-    displayValue += e.target.id;
+  if (!(number === "." && frontValue.includes("."))) {
+    frontValue += number;
   }
 
-  resultDisplay.textContent = displayValue;
+  frontDisplay.textContent = frontValue;
+
+  if (!operator) {
+    firstNumber = Number(frontValue);
+  } else {
+    secondNumber = Number(frontValue);
+  }
+}
+
+function processOperator(e) {
+  operator = e.target.id;
+
+  queueValue = `${frontValue} ${operator}`;
+  queueDisplay.textContent = queueValue;
+}
+
+function processEquals(e) {
+  if (!(firstNumber && operator && secondNumber)) {
+    return;
+  }
+
+  const result = operate(operator, firstNumber, secondNumber);
+
+  frontValue = result.toString();
+  frontDisplay.textContent = frontValue;
 }
 
 function operate(operator, firstNumber, secondNumber) {
   switch (operator) {
     case "+":
       return add(firstNumber, secondNumber);
-      break;
     case "-":
       return subtract(firstNumber, secondNumber);
-      break;
-    case "*":
+    case "×":
       return multiply(firstNumber, secondNumber);
-      break;
-    case "/":
+    case "÷":
       return divide(firstNumber, secondNumber);
-      break;
   }
 }
 
