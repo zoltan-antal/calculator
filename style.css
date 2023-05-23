@@ -34,11 +34,13 @@ body {
 #queue {
   margin: 15px 20px 2px;
   font-size: 18pt;
+  height: 28px;
 }
 
 #result {
   margin: 2px 20px 15px;
   font-size: 36pt;
+  height: 55px;
 }
 
 .button-row {
