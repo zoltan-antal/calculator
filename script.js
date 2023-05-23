@@ -63,7 +63,7 @@ function processOperator(e) {
     toResetQueueDisplay = false;
   }
   
-  if (operatorList.some(operator => operator === queueValue.slice(-1))) {
+  if (operatorList.some(operator => operator === queueValue.slice(-1)) && secondNumber) {
     getUpdateResult();
   }
 
@@ -73,6 +73,7 @@ function processOperator(e) {
   queueDisplay.textContent = queueValue;
 
   toResetFrontDisplay = true;
+  secondNumber = null;
 }
 
 function processEquals(e) {
@@ -125,11 +126,11 @@ function operate(operator, firstNumber, secondNumber) {
 }
 
 function add(a, b) {
-  return a + b;
+  return Math.round((a + b) * 1000) / 1000;
 }
 
 function subtract(a, b) {
-  return a - b;
+  return Math.round((a - b) * 1000) / 1000;
 }
 
 function multiply(a, b) {
