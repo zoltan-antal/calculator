@@ -1,6 +1,7 @@
 let firstNumber = null;
 let secondNumber = null;
 let operator = null;
+let result = null;
 
 const operatorList = ["+", "-", "×", "÷"];
 
@@ -45,11 +46,7 @@ function addNumber(e) {
 
 function processOperator(e) {
   if (operatorList.some(operator => operator === queueValue.slice(-1))) {
-    const result = operate(operator, firstNumber, secondNumber);
-    firstNumber = result;
-
-    frontValue = result.toString();
-    frontDisplay.textContent = frontValue;
+    getUpdateResult();
   }
 
   operator = e.target.id;
@@ -68,7 +65,11 @@ function processEquals(e) {
   queueValue += ` ${frontValue} =`;
   queueDisplay.textContent = queueValue;
 
-  const result = operate(operator, firstNumber, secondNumber);
+  getUpdateResult();
+}
+
+function getUpdateResult() {
+  result = operate(operator, firstNumber, secondNumber);
   firstNumber = result;
 
   frontValue = result.toString();
