@@ -2,7 +2,7 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = null;
 
-// const operatorList = ["+", "-", "×", "÷"];
+const operatorList = ["+", "-", "×", "÷"];
 
 let frontValue = "0";
 let queueValue = "";
@@ -44,6 +44,14 @@ function addNumber(e) {
 }
 
 function processOperator(e) {
+  if (operatorList.some(operator => operator === queueValue.slice(-1))) {
+    const result = operate(operator, firstNumber, secondNumber);
+    firstNumber = result;
+
+    frontValue = result.toString();
+    frontDisplay.textContent = frontValue;
+  }
+
   operator = e.target.id;
 
   queueValue = `${frontValue} ${operator}`;
@@ -53,9 +61,12 @@ function processOperator(e) {
 }
 
 function processEquals(e) {
-  if (!(firstNumber && operator && secondNumber)) {
+  if ((!(firstNumber && operator && secondNumber)) || (queueValue.slice(-1) === "=")) {
     return;
   }
+
+  queueValue += ` ${frontValue} =`;
+  queueDisplay.textContent = queueValue;
 
   const result = operate(operator, firstNumber, secondNumber);
   firstNumber = result;
