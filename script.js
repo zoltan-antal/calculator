@@ -35,6 +35,9 @@ function addNumber(e) {
     frontValue += number;
   }
 
+  if (checkOverflow()) {
+    return;
+  }
   frontDisplay.textContent = frontValue;
 
   if (!operator) {
@@ -45,6 +48,10 @@ function addNumber(e) {
 }
 
 function processOperator(e) {
+  if (checkOverflow()) {
+    return;
+  }
+  
   if (operatorList.some(operator => operator === queueValue.slice(-1))) {
     getUpdateResult();
   }
@@ -70,10 +77,22 @@ function processEquals(e) {
 
 function getUpdateResult() {
   result = operate(operator, firstNumber, secondNumber);
+
   firstNumber = result;
 
   frontValue = result.toString();
+  if (checkOverflow()) {
+    return;
+  }
   frontDisplay.textContent = frontValue;
+}
+
+function checkOverflow() {
+  if (frontValue.toString().length > 11 || frontValue.includes("OVERFLOW")) {
+    frontValue = "OVERFLOW";
+    frontDisplay.textContent = frontValue;
+    return true;
+  }
 }
 
 function operate(operator, firstNumber, secondNumber) {
