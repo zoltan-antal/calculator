@@ -82,16 +82,16 @@ button:active {
   background-color: rgb(255, 130, 0);
 }
 
-.operation {
+.operator {
   background-color: dodgerblue;
   font-size: 20pt;
 }
 
-.operation:hover {
+.operator:hover {
   background-color: rgb(17, 130, 243);
 }
 
-.operation:active {
+.operator:active {
   background-color: rgb(14, 118, 223);
 }
 
