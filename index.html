@@ -9,35 +9,38 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div id="#body">
-    <div id="#display"></div>
-    <div class="button-row">
-      <button>CLEAR</button>
-      <button>DELETE</button>
+  <div id="body">
+    <div id="display">
+      <p id="queue">3 + 5</p>
+      <p id="result">8</p>
     </div>
     <div class="button-row">
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>÷</button>
+      <button class="special" id="clear">C</button>
+      <button class="special" id="delete">⌫</button>
     </div>
     <div class="button-row">
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>×</button>
+      <button class="number" id="7">7</button>
+      <button class="number" id="8">8</button>
+      <button class="number" id="9">9</button>
+      <button class="operation" id="÷">÷</button>
     </div>
     <div class="button-row">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>-</button>
+      <button class="number" id="4">4</button>
+      <button class="number" id="5">5</button>
+      <button class="number" id="6">6</button>
+      <button class="operation" id="×">×</button>
     </div>
     <div class="button-row">
-      <button>.</button>
-      <button>0</button>
-      <button>=</button>
-      <button>+</button>
+      <button class="number" id="1">1</button>
+      <button class="number" id="2">2</button>
+      <button class="number" id="3">3</button>
+      <button class="operation" id="-">-</button>
+    </div>
+    <div class="button-row">
+      <button class="number" id=".">.</button>
+      <button class="number" id="0">0</button>
+      <button id="=">=</button>
+      <button class="operation" id="+">+</button>
     </div>
   </div>
 </body>

@@ -1,0 +1,120 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 100px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  height: 550px;
+  background-color: grey;
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 25px;
+  gap: 10px;
+}
+
+#display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 350px;
+  height: 120px;
+  background-color: lightgrey;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+#queue {
+  margin: 15px 20px 2px;
+  font-size: 18pt;
+}
+
+#result {
+  margin: 2px 20px 15px;
+  font-size: 36pt;
+}
+
+.button-row {
+  display: flex;
+  flex: 1;
+  width: 350px;
+  gap: 10px;
+}
+
+button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: lightgrey;
+  font-size: 18pt;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(190, 190, 190);
+}
+
+button:active {
+  background-color: rgb(165, 165, 165);
+}
+
+.special {
+  background-color: orange;
+}
+
+.special:hover {
+  background-color: rgb(255, 150, 0);
+}
+
+.special:active {
+  background-color: rgb(255, 130, 0);
+}
+
+.operation {
+  background-color: dodgerblue;
+  font-size: 20pt;
+}
+
+.operation:hover {
+  background-color: rgb(17, 130, 243);
+}
+
+.operation:active {
+  background-color: rgb(14, 118, 223);
+}
+
+#delete {
+  box-sizing: border-box;
+  padding-top: 8px;
+}
+
+#\= {
+  background-color: red;
+  font-size: 20pt;
+}
+
+#\=:hover {
+  background-color: rgb(241, 23, 23);
+}
+
+#\=:active {
+  background-color: rgb(221, 18, 18);
+}
+
+#body,
+#display,
+button {
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
