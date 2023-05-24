@@ -24,8 +24,12 @@ equalsButton.addEventListener("click", processEquals);
 const clearButton = document.querySelector("#clear");
 clearButton.addEventListener("click", clear);
 
+const deleteButton = document.querySelector("#delete");
+deleteButton.addEventListener("click", deleteNumber);
+
 let toResetFrontDisplay = false;
 let toResetQueueDisplay = false;
+let canDelete = true;
 
 function addNumber(e) {
   const number = e.target.id;
@@ -59,6 +63,8 @@ function addNumber(e) {
   } else {
     secondNumber = frontValue;
   }
+
+  canDelete = true;
 }
 
 function processOperator(e) {
@@ -69,6 +75,8 @@ function processOperator(e) {
   if (queueValue.slice(-1) === "=") {
     toResetQueueDisplay = false;
   }
+
+  canDelete = false;
   
   if (operatorList.some(operator => operator === queueValue.slice(-1)) && secondNumber) {
     getUpdateResult();
@@ -87,6 +95,8 @@ function processEquals(e) {
   if ((!(firstNumber && operator && secondNumber)) || (queueValue.slice(-1) === "=")) {
     return;
   }
+
+  canDelete = false;
 
   queueValue += ` ${frontValue} =`;
   queueDisplay.textContent = queueValue;
@@ -119,18 +129,21 @@ function checkErrors() {
   if (frontValue.toString().length > 11 || frontValue.includes("OVERFLOW")) {
     frontValue = "OVERFLOW";
     frontDisplay.textContent = frontValue;
+    canDelete = false;
     return true;
   }
   
   if (frontValue.includes("NOPE")) {
     frontValue = "NOPE";
     frontDisplay.textContent = frontValue;
+    canDelete = false;
     return true;
   }
 
   if (operator === "÷" && secondNumber === "0") {
     frontValue = "NOPE";
     frontDisplay.textContent = frontValue;
+    canDelete = false;
     return;
   }
 }
@@ -148,6 +161,24 @@ function clear() {
 
   toResetFrontDisplay = false;
   toResetQueueDisplay = false;
+  canDelete = true;
+}
+
+function deleteNumber() {
+  if (canDelete) {
+    frontValue = frontValue.slice(0, -1);
+    frontDisplay.textContent = frontValue;
+  }
+
+  if (!operator) {
+    firstNumber = frontValue;
+  } else {
+    secondNumber = frontValue;
+  }
+
+  if (frontValue.length === 0) {
+    canDelete = false;
+  }
 }
 
 function operate(operator, firstNumber, secondNumber) {
