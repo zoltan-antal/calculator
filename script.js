@@ -1,4 +1,4 @@
-let firstNumber = null;
+let firstNumber = "0";
 let secondNumber = null;
 let operator = null;
 let result = null;
@@ -27,6 +27,10 @@ let toResetQueueDisplay = false;
 function addNumber(e) {
   const number = e.target.id;
 
+  if (checkErrors()) {
+    return;
+  }
+
   if ((frontValue === "0" && number !== ".") || toResetFrontDisplay) {
     frontValue = "";
     toResetFrontDisplay = false;
@@ -42,20 +46,20 @@ function addNumber(e) {
     frontValue += number;
   }
 
-  if (checkOverflow()) {
+  if (checkErrors()) {
     return;
   }
   frontDisplay.textContent = frontValue;
 
   if (!operator) {
-    firstNumber = Number(frontValue);
+    firstNumber = frontValue;
   } else {
-    secondNumber = Number(frontValue);
+    secondNumber = frontValue;
   }
 }
 
 function processOperator(e) {
-  if (checkOverflow()) {
+  if (checkErrors()) {
     return;
   }
 
@@ -93,22 +97,38 @@ function processEquals(e) {
 }
 
 function getUpdateResult() {
-  result = operate(operator, firstNumber, secondNumber);
+  if (checkErrors()) {
+    return;
+  }
+
+  result = operate(operator, Number(firstNumber), Number(secondNumber));
 
   firstNumber = result;
 
   frontValue = result.toString();
-  if (checkOverflow()) {
+  if (checkErrors()) {
     return;
   }
   frontDisplay.textContent = frontValue;
 }
 
-function checkOverflow() {
+function checkErrors() {
   if (frontValue.toString().length > 11 || frontValue.includes("OVERFLOW")) {
     frontValue = "OVERFLOW";
     frontDisplay.textContent = frontValue;
     return true;
+  }
+  
+  if (frontValue.includes("NOPE")) {
+    frontValue = "NOPE";
+    frontDisplay.textContent = frontValue;
+    return true;
+  }
+
+  if (operator === "÷" && secondNumber === "0") {
+    frontValue = "NOPE";
+    frontDisplay.textContent = frontValue;
+    return;
   }
 }
 
