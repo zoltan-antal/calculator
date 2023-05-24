@@ -129,21 +129,30 @@ function checkErrors() {
   if (frontValue.toString().length > 11 || frontValue.includes("OVERFLOW")) {
     frontValue = "OVERFLOW";
     frontDisplay.textContent = frontValue;
+
+    queueValue = "";
+    queueDisplay.textContent = queueValue;
+
     canDelete = false;
+    
     return true;
   }
   
   if (frontValue.includes("NOPE")) {
     frontValue = "NOPE";
     frontDisplay.textContent = frontValue;
+
     canDelete = false;
+    
     return true;
   }
 
   if (operator === "÷" && secondNumber === "0") {
     frontValue = "NOPE";
     frontDisplay.textContent = frontValue;
+
     canDelete = false;
+    
     return;
   }
 }
