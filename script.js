@@ -21,6 +21,9 @@ operatorButtons.forEach(operatorButton => operatorButton.addEventListener("click
 const equalsButton = document.querySelector("#\\=");
 equalsButton.addEventListener("click", processEquals);
 
+const clearButton = document.querySelector("#clear");
+clearButton.addEventListener("click", clear);
+
 let toResetFrontDisplay = false;
 let toResetQueueDisplay = false;
 
@@ -130,6 +133,21 @@ function checkErrors() {
     frontDisplay.textContent = frontValue;
     return;
   }
+}
+
+function clear() {
+  firstNumber = "0";
+  secondNumber = null;
+  operator = null;
+  result = null;
+
+  frontValue = "0";
+  queueValue = "";
+  frontDisplay.textContent = frontValue;
+  queueDisplay.textContent = queueValue;
+
+  toResetFrontDisplay = false;
+  toResetQueueDisplay = false;
 }
 
 function operate(operator, firstNumber, secondNumber) {
