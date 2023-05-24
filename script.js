@@ -110,7 +110,7 @@ function processEquals(e) {
 }
 
 function getUpdateResult() {
-  if (checkErrors()) {
+  if (checkErrors(true)) {
     return;
   }
 
@@ -119,13 +119,13 @@ function getUpdateResult() {
   firstNumber = result;
 
   frontValue = result.toString();
-  if (checkErrors()) {
+  if (checkErrors(true)) {
     return;
   }
   frontDisplay.textContent = frontValue;
 }
 
-function checkErrors() {
+function checkErrors(operation = null) {
   if (frontValue.toString().length > 11 || frontValue.includes("OVERFLOW")) {
     frontValue = "OVERFLOW";
     frontDisplay.textContent = frontValue;
@@ -147,7 +147,7 @@ function checkErrors() {
     return true;
   }
 
-  if (operator === "÷" && secondNumber === "0") {
+  if (operator === "÷" && secondNumber === "0" && operation) {
     frontValue = "NOPE";
     frontDisplay.textContent = frontValue;
 
